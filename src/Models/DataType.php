@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class DataType extends Model
 {
     protected $table = 'data_types';
+
     protected $fillable = [
         'name',
         'slug',
@@ -20,14 +21,18 @@ class DataType extends Model
         'description',
         'filament_resource',
     ];
+
     protected $casts = [
         'details' => 'array',
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
-    public function fields() : HasMany{
+
+    public function fields(): HasMany
+    {
         return $this->hasMany(DataRow::class, 'id');
     }
 }

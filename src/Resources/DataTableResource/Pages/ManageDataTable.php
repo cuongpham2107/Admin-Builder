@@ -17,14 +17,14 @@ class ManageDataTable extends ManageRecords
         ];
     }
 
-    public function handleCreateAction(){
-        return 
+    public function handleCreateAction()
+    {
+        return
             \Filament\Actions\CreateAction::make()
                 ->modalWidth(MaxWidth::SixExtraLarge);
-                // ->slideOver()
-                // ->action(function (array $data): void {
-                //     // dd($data);
-                // });
+        // ->slideOver()
+        // ->action(function (array $data): void {
+        //     // dd($data);
+        // });
     }
-    
 }

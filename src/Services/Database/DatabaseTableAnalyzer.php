@@ -6,8 +6,7 @@ use CuongPham2107\AdminBuilder\Services\Interface\DatabaseServiceInterface;
 
 class DatabaseTableAnalyzer
 {
-    public function __construct(private DatabaseServiceInterface $dbService)
-    {}
+    public function __construct(private DatabaseServiceInterface $dbService) {}
 
     public function createTable(string $tableName, array $columns): array
     {

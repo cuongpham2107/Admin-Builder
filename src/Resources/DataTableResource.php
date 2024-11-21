@@ -2,21 +2,20 @@
 
 namespace CuongPham2107\AdminBuilder\Resources;
 
+use CuongPham2107\AdminBuilder\Forms\Components\TableRepeater;
 use CuongPham2107\AdminBuilder\Models\DataTable;
 use CuongPham2107\AdminBuilder\Resources\DataTableResource\Pages;
-use CuongPham2107\AdminBuilder\Forms\Components\TableRepeater;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
-use Filament\Forms;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Support\Enums\Alignment;
-use Filament\Tables;
 use Filament\Support\Enums\MaxWidth;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class DataTableResource extends Resource
 {
     protected static ?string $model = DataTable::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
 
     protected static ?string $navigationLabel = 'Database';
@@ -180,8 +179,6 @@ class DataTableResource extends Resource
             ]);
     }
 
-
-
     public static function getPages(): array
     {
         return [
@@ -190,6 +187,7 @@ class DataTableResource extends Resource
             'edit' => Pages\EditDataTable::route('/{record}/edit'),
         ];
     }
+
     public static function createResource(): Tables\Actions\Action
     {
         return

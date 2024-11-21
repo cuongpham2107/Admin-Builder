@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataRow extends Model
 {
     protected $table = 'data_rows';
+
     protected $fillable = [
         'data_type_id',
         'field',
@@ -21,13 +22,16 @@ class DataRow extends Model
         'details',
         'order',
     ];
+
     protected $casts = [
         'details' => 'array',
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
+
     public function dataType()
     {
         return $this->belongsTo(DataType::class, 'data_type_id');

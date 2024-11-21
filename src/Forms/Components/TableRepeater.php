@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CuongPham2107\AdminBuilder\Forms\Components;
 
 use Filament\Forms\Components\Repeater;
@@ -8,11 +7,12 @@ use Filament\Forms\Components\Repeater;
 class TableRepeater extends Repeater
 {
     use Concerns\HasExtraActions;
+
     protected string $view = 'admin-builder::forms.components.table-repeater';
 
     protected ?string $description = null;
 
-    protected array|null $columnLabels = [];
+    protected ?array $columnLabels = [];
 
     protected function setUp(): void
     {
@@ -20,11 +20,11 @@ class TableRepeater extends Repeater
         parent::setUp();
 
         $this->registerActions([
-            fn (TableRepeater $component): array => $component->getExtraActions()
+            fn (TableRepeater $component): array => $component->getExtraActions(),
         ]);
     }
 
-    public function getColumnLabels(): array|null
+    public function getColumnLabels(): ?array
     {
         $this->setColumnLabels();
 
@@ -47,10 +47,11 @@ class TableRepeater extends Repeater
     public function description(string $description): static
     {
         $this->description = $description;
+
         return $this;
     }
 
-    public function getDescription(): string | null
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -64,5 +65,4 @@ class TableRepeater extends Repeater
 
         return $this;
     }
-
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('data_type_id');
             $table->string('field', 150);
             $table->string('type', 150);
-            $table->string('display_name',150);
+            $table->string('display_name', 150);
             $table->boolean('required');
             $table->boolean('browse');
             $table->boolean('read');

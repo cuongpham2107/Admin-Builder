@@ -5,19 +5,18 @@ namespace CuongPham2107\AdminBuilder;
 use CuongPham2107\AdminBuilder\Services\Database\DatabaseServiceInterface;
 use CuongPham2107\AdminBuilder\Services\Database\MySqlDatabaseService;
 use CuongPham2107\AdminBuilder\Services\Database\SQLiteDatabaseService;
-
+use CuongPham2107\AdminBuilder\Testing\TestsAdminBuilder;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\DB;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use CuongPham2107\AdminBuilder\Testing\TestsAdminBuilder;
-use Illuminate\Support\Facades\DB;
 
 class AdminBuilderServiceProvider extends PackageServiceProvider
 {
@@ -66,12 +65,11 @@ class AdminBuilderServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         // Database Service Binding
-        $this->app->bind(DatabaseServiceInterface::class, function($app){
-            if(DB::getDriverName() === 'sqlite'){
-                return new SQLiteDatabaseService();
-            }
-            else{
-                return new MySqlDatabaseService();
+        $this->app->bind(DatabaseServiceInterface::class, function ($app) {
+            if (DB::getDriverName() === 'sqlite') {
+                return new SQLiteDatabaseService;
+            } else {
+                return new MySqlDatabaseService;
             }
         });
         //Migration registration

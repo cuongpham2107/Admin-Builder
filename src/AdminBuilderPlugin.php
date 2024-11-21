@@ -2,13 +2,13 @@
 
 namespace CuongPham2107\AdminBuilder;
 
-use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
 class AdminBuilderPlugin implements Plugin
 {
     protected ?array $resource = null;
+
     public function getId(): string
     {
         return 'admin-builder';
@@ -44,7 +44,6 @@ class AdminBuilderPlugin implements Plugin
         return $this->resource ?? [
             \CuongPham2107\AdminBuilder\Resources\DataTableResource::class,
         ];
-        
+
     }
-   
 }
