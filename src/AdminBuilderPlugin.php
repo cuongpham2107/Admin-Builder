@@ -1,20 +1,24 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace CuongPham2107\AdminBuilder;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class SkeletonPlugin implements Plugin
+class AdminBuilderPlugin implements Plugin
 {
+    protected ?array $resource = null;
     public function getId(): string
     {
-        return 'skeleton';
+        return 'admin-builder';
     }
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->resources(
+            $this->getResource()
+        );
     }
 
     public function boot(Panel $panel): void
@@ -34,4 +38,13 @@ class SkeletonPlugin implements Plugin
 
         return $plugin;
     }
+
+    public function getResource(): array
+    {
+        return $this->resource ?? [
+            \CuongPham2107\AdminBuilder\Resources\DataTableResource::class,
+        ];
+        
+    }
+   
 }

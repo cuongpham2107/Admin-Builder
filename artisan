@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Input\ArgvInput;
+use Illuminate\Foundation\Application;
+
+define('LARAVEL_START', microtime(true));
+
+// Đường dẫn tới thư mục gốc của ứng dụng Laravel (điều chỉnh nếu cần)
+$basePath = dirname(__DIR__, 2);
+
+// Kiểm tra xem `artisan` gốc có tồn tại không
+if (!file_exists($basePath . '/artisan')) {
+    fwrite(STDERR, "Không tìm thấy file artisan trong thư mục gốc: {$basePath}\n");
+    exit(1);
+}
+
+// Register the Composer autoloader...
+require $basePath . '/vendor/autoload.php';
+
+// Bootstrap Laravel và lấy instance của ứng dụng
+$app = require_once $basePath . '/bootstrap/app.php';
+
+// Handle command trong bối cảnh của plugin
+$status = $app->make(Application::class)->handleCommand(new ArgvInput);
+
+exit($status);

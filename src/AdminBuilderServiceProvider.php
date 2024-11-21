@@ -1,8 +1,11 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace CuongPham2107\AdminBuilder;
 
-use Filament\Support\Assets\AlpineComponent;
+use CuongPham2107\AdminBuilder\Services\Database\DatabaseServiceInterface;
+use CuongPham2107\AdminBuilder\Services\Database\MySqlDatabaseService;
+use CuongPham2107\AdminBuilder\Services\Database\SQLiteDatabaseService;
+
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -13,14 +16,14 @@ use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
-use VendorName\Skeleton\Testing\TestsSkeleton;
+use CuongPham2107\AdminBuilder\Testing\TestsAdminBuilder;
+use Illuminate\Support\Facades\DB;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class AdminBuilderServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'skeleton';
+    public static string $name = 'admin-builder';
 
-    public static string $viewNamespace = 'skeleton';
+    public static string $viewNamespace = 'admin-builder';
 
     public function configurePackage(Package $package): void
     {
@@ -36,7 +39,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub(':vendor_slug/:package_slug');
+                    ->askToStarRepoOnGitHub('cuongpham2107/admin-builder');
             });
 
         $configFileName = $package->shortName();
@@ -62,6 +65,17 @@ class SkeletonServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        // Database Service Binding
+        $this->app->bind(DatabaseServiceInterface::class, function($app){
+            if(DB::getDriverName() === 'sqlite'){
+                return new SQLiteDatabaseService();
+            }
+            else{
+                return new MySqlDatabaseService();
+            }
+        });
+        //Migration registration
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -80,18 +94,18 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/skeleton/{$file->getFilename()}"),
-                ], 'skeleton-stubs');
+                    $file->getRealPath() => base_path("stubs/admin-builder/{$file->getFilename()}"),
+                ], 'admin-builder-stubs');
             }
         }
-
         // Testing
-        Testable::mixin(new TestsSkeleton);
+        Testable::mixin(new TestsAdminBuilder);
+
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return ':vendor_slug/:package_slug';
+        return 'cuongpham2107/admin-builder';
     }
 
     /**
@@ -100,9 +114,9 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('skeleton', __DIR__ . '/../resources/dist/components/skeleton.js'),
-            Css::make('skeleton-styles', __DIR__ . '/../resources/dist/skeleton.css'),
-            Js::make('skeleton-scripts', __DIR__ . '/../resources/dist/skeleton.js'),
+            // AlpineComponent::make('admin-builder', __DIR__ . '/../resources/dist/components/admin-builder.js'),
+            Css::make('admin-builder-styles', __DIR__ . '/../resources/dist/admin-builder.css'),
+            Js::make('admin-builder-scripts', __DIR__ . '/../resources/dist/admin-builder.js'),
         ];
     }
 
@@ -112,7 +126,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            SkeletonCommand::class,
+            // AdminBuilderCommand::class,
         ];
     }
 
@@ -146,7 +160,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_skeleton_table',
+            __DIR__ . '/../database/migrations',
         ];
     }
 }

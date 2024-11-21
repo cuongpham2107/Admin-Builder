@@ -1,29 +1,31 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "cuongpham2107/admin-builder",
+    "description": "This is my package admin-builder",
     "keywords": [
-        ":vendor_name",
+        "cuongpham2107",
         "laravel",
-        ":package_slug"
+        "admin-builder"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/cuongpham2107/admin-builder",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/cuongpham2107/admin-builder/issues",
+        "source": "https://github.com/cuongpham2107/admin-builder"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Cuong Pham",
+            "email": "cuongpham2107@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
+        "awcodes/filament-table-repeater": "^3.1",
+        "calebporzio/sushi": "^2.5",
+        "filament/filament": "^3.2",
+        "illuminate/console": "*",
+        "illuminate/support": "*",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
@@ -41,13 +43,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "CuongPham2107\\AdminBuilder\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "CuongPham2107\\AdminBuilder\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,11 +68,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
+                "CuongPham2107\\AdminBuilder\\AdminBuilderServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
